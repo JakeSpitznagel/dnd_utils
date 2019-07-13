@@ -1,0 +1,84 @@
+#!/usr/bin/python3.7
+# PYTHON_ARGCOMPLETE_OK
+# import argcomplete
+
+from random import randint
+from sys import argv
+from functools import wraps
+from argparse import ArgumentParser
+
+
+DC = 23
+MOD = 15
+LEVEL = 20
+
+
+def spell(func):
+    func.is_spell = True
+    return func
+
+
+def cantrip(func):
+    @wraps(func)
+    @spell
+    def f():
+        if LEVEL >= 17:
+            mult = 4
+        elif LEVEL >= 11:
+            mult = 3
+        elif LEVEL >= 5:
+            mult = 2
+        else:
+            mult = 1
+        func(mult)
+    return f
+
+
+@cantrip
+def firebolt(mult):
+    """
+    fire cantrip
+    """
+    print(f'to hit: {randint(1, 20) + MOD}, fire damage: {sum([randint(1, 10) for _ in range(mult)])}')
+
+
+@spell
+def fireball(upcast=None):
+    """
+    do fire in aoe
+    """
+    upcast_mod = upcast - 3 if upcast is not None and upcast > 3 else 0
+    print(f'DC: {DC}, save: DEX, fire damage: {sum([randint(1, 6) for _ in range(8 + upcast_mod)])}, AOE: 20ft radius')
+
+
+@spell
+def hold_person(upcast=None):
+    """
+    holds a person
+    """
+    print('paralyze')
+
+
+if __name__ == '__main__':
+    try:
+        argv[1] = argv[1].replace(' ', '_')  # allow for quotes with spaces or underscores eg. 'hold person' or hold_person
+    except IndexError:
+        pass
+    spell_list = [i.__name__ for i in list(locals().values()) if(hasattr(i, 'is_spell'))]
+
+    parser = ArgumentParser()
+    parser.add_argument('spell_name', choices=spell_list)
+    parser.add_argument('--upcast', choices=[i for i in range(2, 10)], type=int)
+    parser.add_argument('--desc', action='store_true')
+    argcomplete.autocomplete(parser)
+    args = parser.parse_args()
+
+    _spell = locals()[args.spell_name]
+    if args.desc:
+        print(_spell.__doc__)
+    else:
+        try:
+            _spell(args.upcast)
+        except TypeError:
+            print('Cantrips cannot be upcast')
+
