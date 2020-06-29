@@ -195,6 +195,27 @@ def shadow_image(upcast=None):
 
 
 @spell
+def shadow_blade(upcast=None):
+    """
+    2nd level illusion
+    Casting time: 1 Bonus Action
+    Range: Self
+    Components: V, S
+    Duration: Concentration, up to 1 minute
+    
+    You weave together threads of shadow to create a sword of solidified gloom in your hand. This magic sword lasts until the spell ends.
+    It counts as a simple melee weapon with which you are proficient. It deals 2d8 psychic damage on a hit and has the finesse, light, and thrown properties (range 20/60).
+    In addition, when you use the sword to attack a target that is in dim light or darkness, you make the attack roll with advantage.
+    If you drop the weapon or throw it, it dissipates at the end of the turn. Thereafter, while the spell persists, you can use a bonus action to cause the sword to reappear in your hand.
+
+    At higher level
+    3rd or 4th: 3d8
+    5th or 6th: 4d8
+    7th+: 5d8
+    """
+    print(shadow_blade.__doc__)
+
+@spell
 def haunt(upcast=None):
     """
     8th level illusion
