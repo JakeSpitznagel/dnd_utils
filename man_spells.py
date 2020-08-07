@@ -5,10 +5,10 @@ from random import randint
 from functools import wraps
 
 
-DC = 23
-MOD = 15
-LEVEL = 20
-ABILITY = 7
+DC = 16
+MOD = 8
+LEVEL = 6
+ABILITY = 5
 
 
 def roll(num, die, mod=0):
@@ -274,3 +274,69 @@ def hold_person(upcast=None):
     """
     print(f'save: WIS, DC: {DC}, paralyzed for up to one minute conc. can make another saving throw at the end of it\'s turns')
 
+
+@spell
+def sleep(upcast=None):
+    """
+    Sleep
+    1st-level enchantment
+    Casting Time: 1 action
+    Range: 90 feet
+    Components: V, S, M (a pinch of fine sand, rose petals, or a cricket)
+    Duration: 1 minute
+    
+    This spell sends creatures into a magical slumber.
+    Roll 5d8; the total is how many hit points of creatures this spell can affect.
+    Creatures within 20 feet of a point you choose within range are affected in ascending order of their current hit points (ignoring unconscious creatures).
+
+    Starting with the creature that has the lowest current hit points, each creature affected by this spell falls unconscious until the spell ends, 
+    the sleeper takes damage, or someone uses an action to shake or slap the sleeper awake.
+    Subtract each creature's hit points from the total before moving on to the creature with the next lowest hit points.
+    A creature's hit points must be equal to or less than the remaining total for that creature to be affected.
+
+    Undead and creatures immune to being charmed aren't affected by this spell.
+
+    At Higher Levels.
+    When you cast this spell using a spell slot of 2nd level or higher, roll an additional 2d8 for each slot level above 1st.
+    """
+    upcast_mod = upcast - 1 if upcast is not None and upcast > 1 else 0
+    print(f'Total health: {roll(5 + 2*upcast_mod, 8)}')
+
+@spell
+def healing_spirit(upcast=None):
+    """
+    Healling Spirit
+    2nd-level Conjuration
+    Casting time: 1 Bonus Action
+    Range: 60 feet
+    Components: V, S
+    Duration: Concentration, up to 1 minute
+
+    You call forth a nature spirit to soothe the wounded. The intangible spirit appears in a space that is a 5-foot cube you can see within range. 
+    The spirit looks like a transparent beast or fey (your choice). Until the spell ends, whenever you or a creature you can see moves into the spirits 
+    space for the first time on a turn or starts its turn there, you can cause the spirit to restore ld6 hit points to that creature (no action required). 
+    The spirit can’t heal constructs or undead. As a bonus action on your turn, you can move the Spirit up to 30 feet to a space you can see.
+
+    At higher levels.
+    When you cast this spell using a spell slot of 3rd level or higher, the healing increases 1d6 for each slot level above 2nd.
+    """
+    print(healing_spirit.__doc__)
+
+@spell
+def ice_knife(upcast=None):
+    """
+    1st-level Conjuration
+    Casting time: 1 Action
+    Range: 60 feet
+    Components: S, M (a drop of water or piece of ice)
+    Duration: Instantaneous
+
+    You create a shard of ice and fling it at one creature within range. Make a ranged spell attack against the target. 
+    On a hit, the target takes 1d10 piercing damage. Hit or miss, the shard then explodes. 
+    The target and each creature within 5 feet of the point where the ice exploded must succeed on a Dexterity saving throw or take 2d6 cold damage.
+    
+    At Higher Levels. 
+    When you cast this spell using a spell slot of 2nd level or higher, the cold damage increases by 1d6 for each slot level above 1st.
+
+    """
+    print(ice_knife.__doc__)
