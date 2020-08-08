@@ -366,3 +366,54 @@ def illusory_dragon(upcast=None):
     If a creature discerns the illusion for what it is, the creature can see through it and has advantage on saving throws against its breath.
     """
     print(illusory_dragon.__doc__)
+
+@spell
+def summon_shadow_spirit(upcast=None):
+    """
+    Summon Shadow Spirit
+    3rd-level conjuration
+    Casting Time: 1 action
+    Range: 90 feet
+    Components: V, S, M (tears inside a crystal vial worth at least 300 gp)
+    Duration: Concentration, up to 1 hour
+
+    You call forth a shadowy spirit from the Shadowfell. The spirit manifests physically in an unoccupied space that you can see within range. 
+    This corporeal form uses the Shadow Spirit stat block below. When you cast the spell, choose an emotion: Fury, Despair, or Fear. 
+    The creature physically resembles a misshapen humanoid marked by the chosen emotion, which also determines some of the traits in its stat block. 
+    The creature disappears when it drops to 0 hit points or when the spell ends.
+
+    The creature is friendly to you and your companions for the spell’s duration. 
+    In combat, the creature shares your initiative count, but it takes its turn immediately after yours.
+    It obeys verbal commands that you issue to it (no action required by you). If you don’t issue any, it defends itself but otherwise takes no action.
+
+    At Higher Levels. When you cast this spell using a spell slot of 4th level or higher, the creature assumes the higher level for that casting wherever it uses the spell’s level in its stat block.
+
+    Shadow Spirit
+    Medium monstrosity, neutral evil
+    Armor Class: 11 + the level of the spell (natural armor)
+    Hit Points: equal the shadow’s Constitution modifier + your spellcasting ability modifier + ten times the spell’s level
+    Speed: 40 ft.
+    13 (+1) STR
+    16 (+3) DEX
+    15 (+2) CON
+    4 (−4)  INT
+    10 (+0) WIS
+    16 (+3) CHA
+    Damage Resistances: necrotic
+    Condition Immunities: frightened
+    Senses: darkvision 120 ft., passive Perception 10
+    Languages: Common, understands the languages you speak
+    
+    Bloodthirsty Frenzy (Fury Only). The spirit has advantage on attack rolls against frightened creatures.
+    Shadow Stealth (Fear Only). While in dim light or darkness, the spirit can take the Hide action as a bonus action.
+    Weight of Ages (Despair Only). Any beast or humanoid, other than you, that starts its turn within 5 feet of the spirit has its speed reduced by 20 feet 
+    until the start of that beast or humanoid’s next turn.
+    
+    Actions
+    Multiattack. The spirit makes a number of attacks equal to half this spell’s level (rounded down).
+    Chilling Rend. Melee Weapon Attack: +3 + the spell’s level to hit, reach 5 ft., one target. Hit: 2d8 + 3 + the spell’s level cold damage.
+    Dreadful Scream (1/Day). The spirit screams. 
+        Each creature within 30 feet of it must succeed on a Wisdom saving throw against your spell save DC or be frightened of the spirit for 1 minute. 
+        The frightened creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success
+    """
+    print(summon_shadow_spirit.__doc__)
