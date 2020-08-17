@@ -22,7 +22,7 @@ def get_spell_list():
 
 if __name__ == '__main__':
     try:
-        argv[1] = argv[1].replace(' ', '_')  # allow for quotes with spaces or underscores eg. 'hold person' or hold_person
+        argv[1] = argv[1].replace(' ', '_').lower()  # allow for quotes with spaces or underscores eg. 'hold person' or hold_person
     except IndexError:
         pass
 

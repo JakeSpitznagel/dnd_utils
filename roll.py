@@ -1,11 +1,14 @@
-#!/usr/bin/python3.6
+#!/usr/bin/python3.7
 import sys
+
 from random import randint
 
 
 def print_help():
-    print('expects command line arguments of the form xdy[+z] or optional flags: -[per-roll, help]')
+    print('expects command line arguments of the form xdy[+z] or optional flags: -[per-roll, help, dist]')
     print('per-roll applies the mod to every roll rather than the total')
+    print('dist generates a hitogram of the distribution of values for the given rolls')
+
 
 def d(times, val, mod=0, flags=[]):
     results = []
@@ -15,6 +18,7 @@ def d(times, val, mod=0, flags=[]):
     if 'per-roll' in flags:
         mod = 0
     return sum(results) + mod, results
+
 
 def parse_args():
     '''
@@ -35,15 +39,22 @@ def parse_args():
         args.append([int(x) for x in arg.split('d')] + [int(mod)])
     return args, flags
 
+
 if __name__ == '__main__':
     args, flags = parse_args()
     if 'help' in flags:
         print_help()
         sys.exit()
 
+    if 'dist' in flags:
+        from dist import export_plot
+
     total = 0
     result_list = []
     for arg in args:
+        if 'dist' in flags:
+            num, die, mod = arg[0], arg[1], arg[2]
+            export_plot(num, die, f'plot{num}d{die}plus{mod}.png', mod=mod, per_roll='per_roll' in flags)
         result, rolls = d(*arg, flags=flags)
         total += result
         mod = f'{arg[2]:+}' if arg[2] != 0 else ''
