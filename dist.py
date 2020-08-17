@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as st
 
+from random import randint
 
 def roll(times, val, mod=0, flags=[]):
     results = []
@@ -16,7 +17,7 @@ def roll(times, val, mod=0, flags=[]):
 def dist(num, die, mod=0, per_roll=False, sim=False):
     if sim:
         flags = ['per-roll'] if per_roll else []
-        rolls = [roll(num, die, mod=mod, flags=flags)[0] for i in range(10**6)]
+        rolls = [roll(num, die, mod=mod, flags=flags) for i in range(10**6)]
         rolls.sort()
         return rolls
     d = [i+mod for i in range(1, die+1)]
