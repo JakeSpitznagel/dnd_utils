@@ -42,11 +42,11 @@ def export_plot(num, die, path, mod=0, per_roll=False, title_flair=''):
         plt.xlim(mn, mx)
         kde_xs = np.linspace(mn, mx, 301)
         kde = st.gaussian_kde(x)
-        plt.plot(kde_xs, kde.pdf(kde_xs), color='b')
+        plt.plot(kde_xs, kde.pdf(kde_xs), color='b', label='PDF')
 
     mean = (mod*num) + (num + num*die)/2 if per_roll else mod + (num + num*die)/2
-    plt.axvline(mean, 0, 1)
-
+    plt.axvline(mean, 0, 1, label=str(mean))
+    plt.legend()
     plt.xlabel('Roll value')
     plt.ylabel('Probability')
     if title_flair == '':

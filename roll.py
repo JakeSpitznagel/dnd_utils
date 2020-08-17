@@ -54,7 +54,7 @@ if __name__ == '__main__':
     for arg in args:
         if 'dist' in flags:
             num, die, mod = arg[0], arg[1], arg[2]
-            export_plot(num, die, f'plot{num}d{die}plus{mod}.png', mod=mod, per_roll='per_roll' in flags)
+            export_plot(num, die, f'plot{num}d{die}plus{mod}.png', mod=mod, per_roll='per-roll' in flags)
         result, rolls = d(*arg, flags=flags)
         total += result
         mod = f'{arg[2]:+}' if arg[2] != 0 else ''
