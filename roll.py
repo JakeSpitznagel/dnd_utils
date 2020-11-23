@@ -19,6 +19,10 @@ def d(times, val, mod=0, flags=[]):
         mod = 0
     return sum(results) + mod, results
 
+def stats():
+    results = [sorted(d(4, 6)[1], reverse=True) for _ in range(6)]
+    for res in results:
+        print(f'4d6 drop the lowest: {sum(res[:-1])} ({res})')
 
 def parse_args():
     '''
@@ -44,6 +48,10 @@ if __name__ == '__main__':
     args, flags = parse_args()
     if 'help' in flags:
         print_help()
+        sys.exit()
+
+    if 'stats' in flags:
+        stats()
         sys.exit()
 
     if 'dist' in flags:
