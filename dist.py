@@ -32,9 +32,28 @@ def dist(num, die, mod=0, per_roll=False, sim=False):
     d.sort()
     return d
 
+def dist2(num, die, mod=0, per_roll=False, sim=False):
+    if sim:
+        flags = ['per-roll'] if per_roll else []
+        rolls = [roll(num, die, mod=mod, flags=flags) for i in range(10**6)]
+        rolls.sort()
+        return rolls
+    d = [i+mod for i in range(1, die+1)]
+    for i in range(num-1):
+        temp = []
+        for j in d:
+            for k in range(1, die+1):
+                if per_roll:
+                    k = k + mod
+                temp.append(j+k)
+        d = temp
+    d.sort()
+    return d[1:]
+
+
 def export_plot(num, die, path, mod=0, per_roll=False, title_flair=''):
     sim = die**num > 10**7
-    x = np.array(dist(num, die, mod=mod, per_roll=per_roll, sim=sim))
+    x = np.array(dist2(num, die, mod=mod, per_roll=per_roll, sim=sim))
     plt.hist(x, x[-1] - x[0] +1, density=True, facecolor='r', alpha=0.75)
 
     if sim:
@@ -58,6 +77,6 @@ def export_plot(num, die, path, mod=0, per_roll=False, title_flair=''):
 
 
 if __name__ == '__main__':
-    num, die, mod, per_roll = 7, 8, 30, False
+    num, die, mod, per_roll = 4, 6, 0, False
     export_plot(num, die, 'plot.png', mod=mod, per_roll=per_roll)
 
