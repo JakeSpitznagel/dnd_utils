@@ -33,6 +33,7 @@ def dist(num, die, mod=0, per_roll=False, sim=False):
     return d
 
 def export_plot(num, die, path, mod=0, per_roll=False, title_flair=''):
+    # if the permutations of die is greater than 10,000,000 its quicker to just sim the results
     sim = die**num > 10**7
     x = np.array(dist(num, die, mod=mod, per_roll=per_roll, sim=sim))
     plt.hist(x, x[-1] - x[0] +1, density=True, facecolor='r', alpha=0.75)
