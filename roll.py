@@ -2,7 +2,9 @@
 import sys
 
 from random import randint
-
+from dataclasses import dataclass
+from re import split
+from typing import List
 
 def print_help():
     print('expects command line arguments of the form xdy[+z] or optional flags: -[per-roll, help, dist]')
@@ -20,6 +22,34 @@ def d(times, val, mod=0, flags=[]):
     return sum(results) + mod, results
 
 
+# we need to parse out multiroll strings
+# then call d(x, y) for each roll
+# new data type should be dataclass?
+@dataclass
+class roll_set:
+    rolls: List[any]
+    mod: int = 0
+
+@dataclass
+class roll:
+    count: int
+    die: int
+
+def parse_roll(roll_str: str):
+    if 'd' in roll_str:
+        num, die = roll_str.split('d')
+        return roll(int(num) if num != '' else 1, int(die))
+    return roll(int(roll_str), 1)
+
+def parse_rolls(roll_str: str) -> str:
+    mods = []
+    for c in roll_str:
+        if c == '+' or c == '-':
+            mods.append(c)
+    vals = split('\+|-', roll_str)
+    rolls = [parse_roll(roll) for roll in vals]
+
+
 def parse_args():
     '''
         parse args of the form xdy+z into a list of lists of the form [[x1, y1, z1], ..., [xn, yn, zn]]
@@ -31,6 +61,7 @@ def parse_args():
             flags.append(arg.lstrip('-'))
             continue
         mod = 0
+        parse_rolls(arg)
         if '+' in arg:
             arg, mod = arg.split('+')
         elif '-' in arg:
